@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Dashboard crypto con overview di mercato, KPI, indicatori tecnici e scenari condizionali Entry, Stop Loss e Take Profit.">
+  <title>Crypto Terminal · Market Decision Desk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2309090b'/><circle cx='16' cy='16' r='7' fill='%23a3e635'/></svg>">
+  <style>
+    html{background:#09090b;color:#e4e4e7;font-family:Arial,sans-serif}body{margin:0}img{max-width:100%;height:auto}.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px}.container{max-width:1600px;margin:auto;padding:0 24px}.tick-img,.coin-img-sm{width:18px;height:18px}.coin-img,.decision-asset img{width:28px;height:28px}.style-warning,.bundle-error{display:block;background:#7f1d1d;color:#fff;padding:10px 24px;font:600 13px Arial,sans-serif}.bundle-error{margin:24px;border:1px solid #fb7185}
+  </style>
+  <link rel="stylesheet" href="./style.css?v=3">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <div class="logo">Crypto <span>Terminal</span></div>
+      <div class="logo-sub"><span class="pulse" aria-hidden="true"></span> Market Decision Desk</div>
+    </div>
+    <div class="header-right">
+      <div class="header-meta">
+        <div class="label">Ultimo aggiornamento</div>
+        <div class="val" id="last-sync" aria-live="polite">in attesa</div>
+      </div>
+      <button class="btn-refresh" id="btn-refresh" type="button" aria-label="Aggiorna i dati di mercato">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6v6h-6M4 18v-6h6"/><path d="M18.5 9a7 7 0 0 0-12-2.5L4 9m2 6a7 7 0 0 0 12 2.5L20 15"/></svg>
+        Aggiorna
+      </button>
+    </div>
+  </header>
+
+  <div class="style-warning" role="status">Configurazione incompleta: caricare style.css accanto a index.html.</div>
+
+  <main class="container" id="app">
+    <div class="loading-screen">
+      <span class="spin lg" aria-hidden="true"></span>
+      <span class="mono text-muted">Caricamento dati di mercato…</span>
+    </div>
+  </main>
+
+  <noscript>Questa dashboard richiede JavaScript per recuperare e analizzare i dati di mercato.</noscript>
+  <script src="./indicators.js?v=3" defer></script>
+  <script src="./app.js?v=3" defer></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      window.setTimeout(function () {
+        if (window.CRYPTO_APP_BUNDLE_LOADED === true && typeof window.calcRSI === 'function') return;
+        var app = document.getElementById('app');
+        if (app) app.innerHTML = '<div class="bundle-error"><strong>Applicazione non caricata.</strong><br>Caricare app.js e indicators.js accanto a index.html, quindi aggiornare la pagina.</div>';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
